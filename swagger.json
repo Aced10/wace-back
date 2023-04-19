@@ -244,6 +244,155 @@
           }
         ]
       }
+    },
+    "/payments-source/{id}": {
+      "get": {
+        "tags": ["payment sources"],
+        "summary": "Get payment sources by id!",
+        "description": "Service to retrieve one payment sources by id.",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "payment sources id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/payments-source/acceptance-token": {
+      "get": {
+        "tags": ["payment sources"],
+        "summary": "Get acceptance token!",
+        "description": "Service to retrieve acceptance token.",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/payments-source": {
+      "post": {
+        "tags": ["payment sources"],
+        "summary": "Create new payment source!",
+        "description": "Service to create new payment source.",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Payment Source object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PaymentSource"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/rides/request/{userId}": {
+      "post": {
+        "tags": ["Rides"],
+        "summary": "Create new payment source!",
+        "description": "Service to create new payment source.",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id request ride",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Ride object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Ride"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
     }
   },
   "definitions": {
@@ -267,7 +416,7 @@
       "properties": {
         "name": {
           "type": "string",
-          "default": "Test colmena"
+          "default": "Test Wace"
         },
         "email": {
           "type": "string",
@@ -289,6 +438,40 @@
           "type": "string",
           "description": "User role",
           "enum": ["rider", "driver"]
+        }
+      }
+    },
+    "PaymentSource": {
+      "type": "object",
+      "required": [
+        "customerId",
+        "customerEmail",
+        "acceptanceToken",
+        "type",
+        "token"
+      ],
+      "properties": {
+        "customerId": {
+          "type": "string",
+          "default": "riderId"
+        },
+        "customerEmail": {
+          "type": "string",
+          "default": "rider1@wace.co"
+        },
+        "acceptanceToken": {
+          "type": "string",
+          "default": "wace_acceptance_token"
+        }
+      }
+    },
+    "Ride": {
+      "type": "object",
+      "required": ["startLocation"],
+      "properties": {
+        "startLocation": {
+          "type": "object",
+          "default": { "latitude": 4.605831, "longitude": -74.079264 }
         }
       }
     },

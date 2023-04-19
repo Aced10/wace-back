@@ -1,4 +1,3 @@
-// Model Customer
 const {
   newUser,
   allUsers,

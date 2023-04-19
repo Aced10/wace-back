@@ -10,18 +10,18 @@ const {
 } = require("../controllers/usersController");
 
 // GET all users
-router.get("/", checkAuth, getUsers);
+router.get("/", checkAuth(["admin"]), getUsers);
 
 // GET suer by Id
-router.get("/:id", checkAuth, getUserById);
+router.get("/:id", checkAuth(["admin"]), getUserById);
 
 // ADD a new user
 router.post("/", createUser);
 
 // UPDATE user by Id
-router.put("/:id", checkAuth, updateUser);
+router.put("/:id", checkAuth(["admin", "rider", "driver"]), updateUser);
 
 // DELETE user by Id
-router.delete("/:id", checkAuth, deleteUser);
+router.delete("/:id", checkAuth(["admin"]), deleteUser);
 
 module.exports = router;
